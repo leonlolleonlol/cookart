@@ -1,5 +1,5 @@
-# cookart
-# Summer project 2023
+# cookart  
+## Summer project 2023
 This is a prototype of a possible company that praises home made food  
 A lot of friends and colleagues rely on their parents or on take-out food to eat.  
 That is the reason why I started this project.  
