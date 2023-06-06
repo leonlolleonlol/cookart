@@ -13,6 +13,6 @@ users can create pieces of art with their food and post it.
 ### Source  
 The base of my project is one of my repositeries : [Simulation-circuit-electrique](https://github.com/leonlolleonlol/Simulation-circuit-electrique)  
 ### How to view locally  
-open my repo in vscode and type npm run dev in a new terminal.  
+Open my repo in vscode and type npm run dev in a new terminal.  
 ### How to view remotely  
 Click on my site: [rickroll](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
