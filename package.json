@@ -1,0 +1,40 @@
+{
+  "name": "Simulation-circuit-electrique",
+  "version": "1.0.0",
+  "description": "Simultation d'un circuit électrique",
+  "main": "app.js",
+  "repository": "https://github.com/leonlolleonlol/Simulation-circuit-electrique",
+  "author": "Olivier St-Jean, Leon Kojakian, Esteban Renaud, Axel Shami",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "doc": "jsdoc -c public/jsdoc.json"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-rate-limit": "^6.7.0",
+    "express-session": "^1.17.3",
+    "luxon": "^3.3.0",
+    "nerdamer": "^1.1.13",
+    "nodemon": "^2.0.22",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "docdash": "^2.0.1",
+    "jester": "^0.2.3",
+    "jsdoc": "^4.0.2",
+    "jsdoc-to-markdown": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

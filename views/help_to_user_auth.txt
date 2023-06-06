@@ -1,0 +1,1 @@
+Lien qui nous a permis de faire la base de l'authentification avec node.js: https://www.youtube.com/watch?v=vxu1RrR0vbw

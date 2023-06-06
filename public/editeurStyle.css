@@ -1,0 +1,176 @@
+.button-jump {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  width: 40px;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  padding: 0 16px;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s, transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+}
+
+.button-jump:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-jump:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-jump:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+button {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.username {
+  font: bold 16px Gadugi;
+  color: #505050;
+}
+
+.side-user, .nav-bar, .historique, .grid-choice {
+  display: flex;
+  position: absolute;
+}
+
+.side-user {
+  top: 10px;
+  right: 50px;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-bar {
+  top: 10px;
+  left: 10px;
+  gap: 10px;
+}
+
+.historique {
+  top: 95px;
+  gap: 2px;
+}
+
+.grid-choice {
+  top: 150px;
+}
+
+#projet-name {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -100px;
+  width: 100px;
+  height: 100px;
+
+}
+
+#projet-input {
+  width: 175px;
+  height: 30px;
+  background: #A9A9A9;
+  border-radius: 5px;
+  border-color: transparent;
+  font-family: Cascadia Code ExtraLight;
+  font-size: 15px;
+  text-align: center;
+}
+
+#projet-input:focus {
+  outline-style: none;
+  box-shadow: none;
+  background-color: #A9A9A9;
+  border: solid 2px #696969;
+
+}
+
+.historique-item {
+  width: 40px;
+  height: 30px;
+}
+
+#animate {
+  position: absolute;
+  top: 440px;
+  left: 50px;
+  padding: 5px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+#undo-tip {
+  left: -2px;
+}
+
+#undo-tip::after {
+  left: 20px;
+}
+
+/*https://www.w3schools.com/howto/howto_css_tooltip.asp*/
+.tooltip {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  left: 50%;
+}
+
+
+.top {
+  bottom: 125%;
+}
+
+.top::after {
+  top: 100%;
+  border-color: #555 transparent transparent transparent;
+}
+
+.bottom {
+  top: 125%;
+}
+
+.bottom::after {
+  bottom: 100%;
+  border-color: transparent transparent #555 transparent;
+}

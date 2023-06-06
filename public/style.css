@@ -1,0 +1,132 @@
+b,h1 {
+    text-shadow: 4px 4px red;
+    font-size: 38px;
+  
+}
+button:hover {
+    background-color: #ff0000;
+}
+.buttona {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #ff0000;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.buttona:hover {background-color: #ff5e00}
+
+.buttona:active {
+  background-color: #ffc400;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.button {
+    text-align: left;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+  }
+  img {
+      filter: saturate(300%);
+ }
+  
+  .button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #000000;
+  }
+  
+  .button1:hover {
+    background-color: #000000;
+    color: white;
+  }
+  diva {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation-name: example;
+    animation-duration: 25s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  a{
+  text-align: left;
+  }
+  
+  @keyframes example {
+    0%   {left:-505px; top:0px;}
+    25%  {left:505px; top:0px;}
+    50%  {left:505px; top:600px;}
+    75%  {left:-505px; top:600px;}
+    100% {left:-505px; top:0px;}
+  }
+   
+  #animated_div {
+  width:200px;
+  height:50px;
+  background: #92B901;
+  color: #ffffff;
+  position: relative;
+  font-weight:bold;
+  font-size:26px;
+  padding:10px;
+  animation:animated_div 5s 1;
+  -moz-animation:animated_div 5s 1;
+  -webkit-animation:animated_div 5s 1;
+  -o-animation:animated_div 5s 1;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  }
+
+  body {
+    background-image: url("images/cd.png"),url("images/cd.png");
+    background-repeat: repeat-y,repeat-y;
+    background-position: right top,left top;
+    text-align: center;
+
+  }
+
+  footer{
+    background-image: url("images/cd.png");
+    background-repeat: repeat-x;
+    background-position: right top;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+  }
+  .container {
+    width: 700px;
+    margin: auto;
+  }
+  
+  .container img {
+    width: 700px;
+  }
+  
+  .container .btn {
+    background-color: #ff0000;
+    width: 130px;
+    height: 90px;
+    position: absolute;
+    transform: translate(-280%,285%);
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .container .btn:hover {
+    background-color: black;
+  }

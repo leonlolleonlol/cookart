@@ -1,0 +1,41 @@
+{
+    "opts": {
+        "template": "node_modules/docdash",
+        "destination": "./documentation",
+        "readme": "./readme.md",
+        "recurse": true
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "recurseDepth": 10,
+    "source": {
+       "include": ["public/javascripts", "app.js"],
+       "includePattern": ".js$",
+       "excludePattern": "(node_modules/|docs|lib)"
+    },
+    "docdash": {
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "typedefs": true,
+        "removeQuotes": "none",
+        "scripts": [],
+        "menu":{
+            "Github repo": {
+                "href":"https://github.com/leonlolleonlol/Simulation-circuit-electrique",
+                "target":"_blank",
+                "class":"menu-item",
+                "id":"repository"
+            }
+        }
+    },
+    "templates": {
+        "default": {
+            "useLongnameInNav": true
+        },
+        "cleverLinks":true,
+        "monospaceLinks":true
+    }
+}

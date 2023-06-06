@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
+    <style>body { 
+         width: 100%;
+        align-items : center;
+        height: 100%;
+         
+
+        /* Background image is centered vertically and horizontally at all times */
+        background-position: center center;
+
+        /* Background image doesn't tile */
+        background-repeat: no-repeat;
+
+        /* Background image is fixed in the viewport so that it doesn't move when 
+        the content's height is greater than the image's height */
+        background-attachment: fixed;
+
+        /* This is what makes the background image rescale based
+        on the container's size */
+        background-size: cover;
+
+        /* Set a background color that will be displayed
+        while the background image is loading */
+        overflow: hidden;
+
+        /* Location of the image */
+        background-image:url("https://media.istockphoto.com/id/1175119770/vector/socket-plug-isolated-icon-connection-plug-socket-concept-electric-or-energy-connection-icon.jpg?s=612x612&w=0&k=20&c=vzeIWm4WJN5sW9V1t6X_vF8oMkIQmMovCm_BH-5YrjI=") ;
+      }</style>
+    <title>Register</title>
+</head>
+<body>
+    <h1 style="color:rgb(0, 0, 0);font-size: 75px;">Register</h1>
+    <ul>
+        <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => { %>
+        <li><%= error.message %></li>
+        <% }) %> <% } %>
+      </ul>
+
+    <Form action="/users/register" method="POST">
+    <div>
+        <input type="text" id="name" name ="name" placeholder="Nom" required/>
+    </div>
+    <div>
+        <input type="text" id="prenom" name ="prenom" placeholder="Prénom" required/>
+    </div>
+    <div>
+        <input type="email" id="email" name ="email" placeholder="Adresse email" required/>
+    </div>
+    <div>
+        <input type="password" id="password" name ="password" placeholder="Mot de passe" required/>
+    </div>
+    <div>
+        <input type="password" id="password2" name ="password2" placeholder="Confirmer le mot de passe" required/>
+    </div>
+    <label for="color">Choose a color:</label>
+  <input type="color" id="color" name="color">
+    <div>
+        <input type="submit" value="Register"/>
+    </div>
+    <a href="/users/login">Already registered? Login here </a>
+    <br>
+    <a href="/acceuil">Home</a>
+    </Form>
+</body>
+</html>
