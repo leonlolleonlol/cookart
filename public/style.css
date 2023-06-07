@@ -1,132 +1,158 @@
-b,h1 {
-    text-shadow: 4px 4px red;
-    font-size: 38px;
-  
-}
-button:hover {
-    background-color: #ff0000;
-}
-.buttona {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #ff0000;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+/* Reset some default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.buttona:hover {background-color: #ff5e00}
-
-.buttona:active {
-  background-color: #ffc400;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
 }
 .button {
-    text-align: left;
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    width: 75px;
-    height: 75px;
-  }
-  img {
-      filter: saturate(300%);
- }
-  
-  .button1 {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #000000;
-  }
-  
-  .button1:hover {
-    background-color: #000000;
-    color: white;
-  }
-  diva {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    position: relative;
-    animation-name: example;
-    animation-duration: 25s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-  }
-  a{
-  text-align: left;
-  }
-  
-  @keyframes example {
-    0%   {left:-505px; top:0px;}
-    25%  {left:505px; top:0px;}
-    50%  {left:505px; top:600px;}
-    75%  {left:-505px; top:600px;}
-    100% {left:-505px; top:0px;}
-  }
-   
-  #animated_div {
-  width:200px;
-  height:50px;
-  background: #92B901;
-  color: #ffffff;
-  position: relative;
-  font-weight:bold;
-  font-size:26px;
-  padding:10px;
-  animation:animated_div 5s 1;
-  -moz-animation:animated_div 5s 1;
-  -webkit-animation:animated_div 5s 1;
-  -o-animation:animated_div 5s 1;
-  border-radius:5px;
-  -webkit-border-radius:5px;
-  }
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 32px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 50%;
+}
 
-  body {
-    background-image: url("images/cd.png"),url("images/cd.png");
-    background-repeat: repeat-y,repeat-y;
-    background-position: right top,left top;
-    text-align: center;
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+}
 
-  }
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 50%;
+}
 
-  footer{
-    background-image: url("images/cd.png");
-    background-repeat: repeat-x;
-    background-position: right top;
-    color: #ffffff;
-    background-color: rgb(0, 0, 0);
-  }
-  .container {
-    width: 700px;
-    margin: auto;
-  }
-  
-  .container img {
-    width: 700px;
-  }
-  
-  .container .btn {
-    background-color: #ff0000;
-    width: 130px;
-    height: 90px;
-    position: absolute;
-    transform: translate(-280%,285%);
-    color: white;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .container .btn:hover {
-    background-color: black;
-  }
+h1, h2, h3 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+header {
+  background-color: #f4f800;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+/* Hero Section Styles */
+.hero {
+  background-image: url("/images/cookingbg.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 400px 0;
+  text-align: center;
+  color: #000000;
+}
+
+.hero-content {
+  max-width:max-content;
+  margin: 0 auto;
+}
+
+.hero h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  transition-duration: 0.4s;
+}
+
+.btn:hover {
+  background-color: #e7e7e7;
+}
+
+/* Featured Recipes Section Styles */
+.featured-recipes {
+  background-color: #fff;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.recipe-card {
+  max-width: 300px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.recipe-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.recipe-card p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
