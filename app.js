@@ -32,9 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());//on utilise des fichiers json
 //importer les ressources externes
 app.use(express.static(path.join(__dirname,'public')));
-app.use('/users/editeur', express.static('public'))
-app.use('/users/editeur', express.static('node_modules'))
-app.use('/users/editeur', express.static('public/javascripts'));
+app.use(express.static(path.join(__dirname,'public/images')));
 app.use(express.static(path.join(__dirname,'public/javascripts')));
 app.use(session({
   secret: 'secret',
@@ -56,6 +54,9 @@ app.listen(3000, () => {
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/acceuil.html'));
+});
+app.get('/about', function(req, res) {
+  res.sendFile(path.join(__dirname, '/about.html'));
 });
 
 app.get('/users/register', checkAuthenticated, function(req, res) {
