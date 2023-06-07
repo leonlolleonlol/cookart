@@ -69,6 +69,8 @@ header {
 nav ul {
   display: flex;
   justify-content: flex-end;
+  font-size: larger;
+  font-weight: bolder;
 }
 
 nav li {
