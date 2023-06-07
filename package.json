@@ -1,10 +1,10 @@
 {
-  "name": "Simulation-circuit-electrique",
+  "name": "cookart",
   "version": "1.0.0",
-  "description": "Simultation d'un circuit électrique",
+  "description": "social media web app about cooking",
   "main": "app.js",
-  "repository": "https://github.com/leonlolleonlol/Simulation-circuit-electrique",
-  "author": "Olivier St-Jean, Leon Kojakian, Esteban Renaud, Axel Shami",
+  "repository": "https://github.com/leonlolleonlol/cookart",
+  "author": "Leon Kojakian",
   "license": "MIT",
   "private": false,
   "scripts": {
