@@ -58,6 +58,9 @@ app.get('/', function(req, res) {
 app.get('/about', function(req, res) {
   res.sendFile(path.join(__dirname, '/about.html'));
 });
+app.get('/users/initialization', function(req, res) {
+  res.sendFile(path.join(__dirname, '/initialization.html'));
+});
 
 app.get('/users/register', checkAuthenticated, function(req, res) {
   res.render('register');

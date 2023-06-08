@@ -1,1 +1,1 @@
-Contribuez by contribuant
+Contribute by contributing
