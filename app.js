@@ -85,7 +85,7 @@ app.post('/users/register', async(req, res)=>{
     console.log(hashedPassword);
     // Validation passed
     pool.query(
-      `SELECT * FROM users
+      `SELECT * FROM cookartusers
         WHERE email = $1`,
       [email],
       (err, results) => {
@@ -100,7 +100,7 @@ app.post('/users/register', async(req, res)=>{
         }
         else{
           pool.query(
-            `INSERT INTO users (name, prenom, email, password, color)
+            `INSERT INTO cookartusers (name, prenom, email, password, color)
                 VALUES ($1, $2, $3, $4, $5)
                 RETURNING id, password`,
             [name, prenom, email, hashedPassword, color],
@@ -135,22 +135,22 @@ app.post('/delete', async(req, res) => {
   var itemId = req.body.itemId;
   try {
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET details[$2]= null 
         WHERE email = $1`, [req.user.email, itemId] 
       );
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET lastsave[$2]= null 
         WHERE email = $1`, [req.user.email, itemId] 
       );
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET details= array_remove(details, NULL) 
         WHERE email = $1`, [req.user.email] 
       );
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET lastsave= array_remove(lastsave, NULL) 
         WHERE email = $1`, [req.user.email] 
       );
@@ -166,7 +166,7 @@ app.post('/query', async(req, res) => {
   let projets;
   try {
     const result = await pool.query(
-      'SELECT details FROM users WHERE email = $1',
+      'SELECT details FROM cookartusers WHERE email = $1',
       [req.user.email]
     );  
     projets = result.rows[0].details;
@@ -190,23 +190,23 @@ app.post('/query', async(req, res) => {
   try {
     if(index!=-1){//On remplace le projet déjà crée par sa nouvelle valeur
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET details[$3]= $1 
         WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email, index] 
       );
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET lastsave[$3]= $1 
         WHERE email = $2`, [localDateTimeString, req.user.email, index] 
       );
     }else{// On crée un nouveau projet dans le array details qui contient toutles projets
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET details=array_append(details, $1) 
         WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email] 
       );
       await pool.query(
-        `UPDATE users
+        `UPDATE cookartusers
         SET lastsave=array_append(lastsave, $1) 
         WHERE email = $2`, [localDateTimeString, req.user.email] 
       );   
@@ -230,7 +230,7 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
   let projets;
   try {
     const result = await pool.query(
-      'SELECT details FROM users WHERE email = $1',
+      'SELECT details FROM cookartusers WHERE email = $1',
       [req.user.email]
     );
     projets = result.rows[0].details;
