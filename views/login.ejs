@@ -10,6 +10,7 @@
         width: 100%;
        align-items : center;
        height: 100%;
+       margin:0;
         
 
        /* Background image is centered vertically and horizontally at all times */
@@ -31,11 +32,20 @@
        overflow: hidden;
 
        /* Location of the image */
-       background-image:url("https://media.istockphoto.com/id/1175119770/vector/socket-plug-isolated-icon-connection-plug-socket-concept-electric-or-energy-connection-icon.jpg?s=612x612&w=0&k=20&c=vzeIWm4WJN5sW9V1t6X_vF8oMkIQmMovCm_BH-5YrjI=") ;
-     }</style>
+       background-image:url("https://media.licdn.com/dms/image/C4D12AQHW4JEGVrGArw/article-cover_image-shrink_720_1280/0/1595791029074?e=2147483647&v=beta&t=P42gkR82x4LaJ8CrlKOwVFfkJNYY28-7HER5ve5x-MQ") ;
+     }
+     .content {
+  background: rgba(255,255,255,0.85);
+  padding: 15px;
+width: 33.3%;}
+* {
+  box-sizing: border-box;
+}
+</style>
     <title>Login</title>
 </head>
 <body>
+    <div class="content">
     <h1 style="color:rgb(0, 0, 0);font-size: 75px;">Login</h1>
     <ul> <!-- Message d'un processus réussi (s'il y en a) -->
         <% if(messages.success_msg) { %>
@@ -62,5 +72,6 @@
     <br>
     <a href="/acceuil">Home</a>
     </Form>
+    </div>
 </body>
 </html>
