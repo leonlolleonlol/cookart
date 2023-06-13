@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>explore</title>
+  <style>body { 
+    width: 100%;
+   align-items : center;
+   height: 100%;
+    
+
+   /* Background image is centered vertically and horizontally at all times */
+   background-position: center center;
+
+   /* Background image doesn't tile */
+   background-repeat: no-repeat;
+
+   /* Background image is fixed in the viewport so that it doesn't move when 
+   the content's height is greater than the image's height */
+   background-attachment: fixed;
+
+   /* This is what makes the background image rescale based
+   on the container's size */
+   background-size: cover;
+
+   /* Set a background color that will be displayed
+   while the background image is loading */
+   overflow: hidden;
+
+   /* Location of the image */
+   background-image:url("https://d1v9pyzt136u2g.cloudfront.net/blog/wp-content/uploads/2022/03/04010315/rsz_viator_shutterstock_186247-1200x809-1-1.jpg") ;
+  }</style>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<style>
+
+html {
+  box-sizing: border-box;
+}
+h1,h2,h3{
+  font-weight: bold;
+  font-size: 30px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.search-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 250px;
+}
+
+.search-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.search-button i {
+  font-size: 18px;
+}
+form{
+  translate: 0% -25%;
+}
+
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <header>
+            <h1 id="cookart">Explore cookart with <%= user.columns.length%> users registered!</h1>
+            <nav>
+              <ul>
+                <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+              </ul>
+              <form action="/search" method="POST">
+                <div class="search-container">
+                  <input type="text" name="search" placeholder="Search..." class="search-input">
+                  <button type="submit" class="search-button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </nav>
+          </header>
+          <% if (user.results===null) { %>
+            <p>No results found.</p>
+            <div class="grid">
+              <% let index=0;%>
+              <% for(const member of user.columns) { index++;%>
+                          <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" : "+ member.email%></h3>
+              <% } %>
+          </div>
+          <% } else { %>
+            <ul>
+              <% let index=0;%>
+              <% for(const member of user.results) { index++;%>
+                          <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" : "+ member.email%></h3>
+              <% } %>
+            </ul>
+            <% if(index<1) {%>
+              <h3 style="background-color: white;padding:20px;border-radius:20px;">No one found!</h3>
+            <% }else if(index===1) {%>
+              <h3 style="background-color: white;padding:20px;border-radius:20px;">1 user found!</h3>
+            <%} else if (index>1){%>
+              <h3 style="background-color: white;padding:20px;border-radius:20px;"><% index %> users found!</h3>
+          <% } %>
+          <% } %> 
+  </table>
+</body>
+</html>

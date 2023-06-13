@@ -22,16 +22,16 @@
         <br></br>
     <a href="/editeur">
         <button style="font-size: 35px;">+
-            Nouveau projet
+            New Recipe
         </button>
     </a>
         <br></br>
         <br></br>
     <div id="user-info">
-        <h1> Bonjour <%= user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1) %> !</h1>
+        <h1> Hello <%= user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1) %> !</h1>
     </div>
     <br>
-    <h2>Projets</h2><!-- Dans cette boucle, on affiche la liste de tout les circuits enregistrés du user ainsi que l'option de delete à côté -->
+    <h2>Recent recipies</h2><!-- Dans cette boucle, on affiche la liste de tout les circuits enregistrés du user ainsi que l'option de delete à côté -->
     <% if(user.projets!=null) {%>
     <% let index=0;%>
     <ul>
@@ -49,8 +49,8 @@
     </ul>
     <% } %>
     <br>
-    <h6 style="white-space: pre-line;">Petite anecdote:
-        Lorsque vous rentrez dans un nouveau projet, veuillez changer le nom du projet.
+    <h6 style="white-space: pre-line;">Little tip:
+        Bla bla bla
     </h6>
     
 </body>

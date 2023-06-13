@@ -218,7 +218,41 @@ app.post('/query', async(req, res) => {
   }
   res.sendStatus(200);
 });
-
+app.post('/search', async (req, res) => {
+  const searchTerm = req.body.search; // Get the search term from the form submission
+  const tableContents = await pool.query('SELECT * FROM cookartusers');
+  const rows=tableContents.rows;
+  // Perform the database query
+  const query = 'SELECT * FROM cookartusers WHERE name ILIKE $1';
+  pool.query(query, [`%${searchTerm}%`])
+    .then((result) => {
+      const searchResults = result.rows;
+      res.render('explore', { 
+        user:{
+          columns: rows,
+          results: searchResults
+        }
+       });
+    })
+    .catch((error) => {
+      console.error('Error executing search query:', error);
+      res.status(500).send('Internal Server Error');
+    });
+});
+app.get('/explore', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM cookartusers');
+    const rows=result.rows;
+    console.log(rows);
+    res.render('explore', {user:{
+      columns: rows,
+      results: null
+    } });
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Error');
+  }
+});
 app.get("/users/logout", async (req, res) => {
   req.logout(function(err) {
     if (err) { return next(err); }
@@ -248,15 +282,8 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
     lastsaves: req.user.lastsave,
   } });
 });
-
-app.get('/test/circuit/:fileName', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/data/'+req.params.fileName+'.json'));
-});
 app.get('/acceuil', function(req, res) {
   res.redirect('/');
-});
-app.get('/nerdamer/all.min.js', function(req, res) {
-  res.sendFile(path.join(__dirname, 'node_modules/nerdamer/all.min.js'));
 });
 app.get('/editeur', checkAuthenticatedForEditor,function(req, res) {
 });
