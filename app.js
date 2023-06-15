@@ -223,7 +223,7 @@ app.post('/search', async (req, res) => {
   const tableContents = await pool.query('SELECT * FROM cookartusers');
   const rows=tableContents.rows;
   // Perform the database query
-  const query = 'SELECT * FROM cookartusers WHERE name ILIKE $1';
+  const query = 'SELECT * FROM cookartusers WHERE prenom ILIKE $1';
   pool.query(query, [`%${searchTerm}%`])
     .then((result) => {
       const searchResults = result.rows;
