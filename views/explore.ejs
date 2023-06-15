@@ -118,15 +118,21 @@ form{
             <div class="grid">
               <% let index=0;%>
               <% for(const member of user.columns) { index++;%>
-                          <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" : "+ member.email%></h3>
+                <%if(member.status===true){%>
+                <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online!"%></h3>
+                <%}else{%>
+                <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline"%></h3><%}%>
               <% } %>
           </div>
           <% } else { %>
             <ul>
               <% let index=0;%>
               <% for(const member of user.results) { index++;%>
-                          <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" : "+ member.email%></h3>
-              <% } %>
+                <%if(member.status===true){%>
+                  <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online!"%></h3>
+                  <%}else{%>
+                  <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline"%></h3><%}%>
+                <% } %>
             </ul>
             <% if(index<1) {%>
               <h3 style="background-color: white;padding:20px;border-radius:20px;">No one found!</h3>

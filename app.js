@@ -254,6 +254,16 @@ app.get('/explore', async (req, res) => {
   }
 });
 app.get("/users/logout", async (req, res) => {
+  try {
+    const result = await pool.query(
+      'update cookartusers set status=false where email = $1',
+      [req.user.email]
+    );
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
   req.logout(function(err) {
     if (err) { return next(err); }
     req.flash("success_msg", "You have logged out");
@@ -268,6 +278,16 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
       [req.user.email]
     );
     projets = result.rows[0].details;
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+  try {
+    const result = await pool.query(
+      'update cookartusers set status=true where email = $1',
+      [req.user.email]
+    );
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
