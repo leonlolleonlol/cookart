@@ -5,20 +5,41 @@
         body {
             background-color: <%=user.color%>;
         }
+        .btn {
+    background-color: DodgerBlue;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    }
+    .container {
+  position: relative;
+}
+
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Dashboard</title>
 </head>
 <body>
-    <div id="user-info">
-        <a href="/users/logout" class="w3-bar-item w3-button">
-            <img src="../images/icons/log-out.svg" alt="Déconnexion"/>
-        </a>
+    <header>
+            <a href="/users/logout">
+                <img src="../images/icons/log-out.svg" alt="Déconnexion"/>
+            </a>
+        <div class="topright">
+            <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
     </div>
+</header>
+
         <br></br>
     <a href="/editeur">
         <button style="font-size: 35px;">+

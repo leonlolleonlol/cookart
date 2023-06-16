@@ -37,9 +37,15 @@
 html {
   box-sizing: border-box;
 }
-h1,h2,h3{
+h1,h2{
   font-weight: bold;
   font-size: 30px;
+}
+h3{
+  padding:20px;
+  border-radius:20px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 *, *:before, *:after {
@@ -119,9 +125,9 @@ form{
               <% let index=0;%>
               <% for(const member of user.columns) { index++;%>
                 <%if(member.status===true){%>
-                <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online!"%></h3>
+                <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online! User since: "+ member.userbirthdate%></h3>
                 <%}else{%>
-                <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline"%></h3><%}%>
+                <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline User since: "+ member.userbirthdate%></h3><%}%>
               <% } %>
           </div>
           <% } else { %>
@@ -129,17 +135,17 @@ form{
               <% let index=0;%>
               <% for(const member of user.results) { index++;%>
                 <%if(member.status===true){%>
-                  <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online!"%></h3>
+                  <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online! User since: "+ member.userbirthdate%></h3>
                   <%}else{%>
-                  <h3 style="background-color: <%=member.color%>;padding:20px;border-radius:20px;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline"%></h3><%}%>
+                  <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline User since: "+ member.userbirthdate%></h3><%}%>
                 <% } %>
             </ul>
             <% if(index<1) {%>
-              <h3 style="background-color: white;padding:20px;border-radius:20px;">No one found!</h3>
+              <h3 style="background-color: white;">No one found!</h3>
             <% }else if(index===1) {%>
-              <h3 style="background-color: white;padding:20px;border-radius:20px;">1 user found!</h3>
+              <h3 style="background-color: white;">1 user found!</h3>
             <%} else if (index>1){%>
-              <h3 style="background-color: white;padding:20px;border-radius:20px;"><% index %> users found!</h3>
+              <h3 style="background-color: white;"><% index %> users found!</h3>
           <% } %>
           <% } %> 
   </table>
