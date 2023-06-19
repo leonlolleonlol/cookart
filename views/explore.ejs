@@ -41,12 +41,13 @@ h1,h2{
   font-weight: bold;
   font-size: 30px;
 }
-h3{
+h3,th{
   padding:20px;
   border-radius:20px;
   font-weight: bold;
   font-size: 20px;
 }
+tr:hover {color: #ddd;}
 
 *, *:before, *:after {
   box-sizing: inherit;
@@ -121,25 +122,47 @@ form{
           </header>
           <% if (user.results===null) { %>
             <p>No results found.</p>
-            <div class="grid">
+              <table style="width: 100%;">
+                <tr style="background-color: white;">
+                  <th>Index</th>
+                  <th>Full name</th>
+                  <th>Status</th>
+                  <th>User since</th>
+                </tr>
               <% let index=0;%>
               <% for(const member of user.columns) { index++;%>
+                <tr>
+                <th style="background-color: <%=member.color%>;"><%= index%></th>
+                <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
                 <%if(member.status===true){%>
-                <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online! User since: "+ member.userbirthdate%></h3>
-                <%}else{%>
-                <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline User since: "+ member.userbirthdate%></h3><%}%>
-              <% } %>
-          </div>
-          <% } else { %>
-            <ul>
-              <% let index=0;%>
-              <% for(const member of user.results) { index++;%>
-                <%if(member.status===true){%>
-                  <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" is online! User since: "+ member.userbirthdate%></h3>
+                  <th style="background-color: <%=member.color%>;">online!</th>
                   <%}else{%>
-                  <h3 style="background-color: <%=member.color%>;"><%= index+". "+member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)+" offline User since: "+ member.userbirthdate%></h3><%}%>
+                  <th style="background-color: <%=member.color%>;">offline</th><%}%>
+                <th style="background-color: <%=member.color%>;"><%=member.userbirthdate%></th>
+                </tr>
                 <% } %>
-            </ul>
+                </table>
+          <% } else { %>
+            <table style="width: 100%;">
+              <tr style="background-color: white;">
+                <th>Index</th>
+                <th>Full name</th>
+                <th>Status</th>
+                <th>User since</th>
+              </tr>
+            <% let index=0;%>
+            <% for(const member of user.columns) { index++;%>
+              <tr>
+              <th style="background-color: <%=member.color%>;"><%= index%></th>
+              <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
+              <%if(member.status===true){%>
+                <th style="background-color: <%=member.color%>;">online!</th>
+                <%}else{%>
+                <th style="background-color: <%=member.color%>;">offline</th><%}%>
+              <th style="background-color: <%=member.color%>;"><%=member.userbirthdate%></th>
+              </tr>
+              <% } %>
+              </table>
             <% if(index<1) {%>
               <h3 style="background-color: white;">No one found!</h3>
             <% }else if(index===1) {%>
@@ -148,6 +171,5 @@ form{
               <h3 style="background-color: white;"><% index %> users found!</h3>
           <% } %>
           <% } %> 
-  </table>
 </body>
 </html>
