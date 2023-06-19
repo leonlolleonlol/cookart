@@ -151,7 +151,7 @@ form{
                 <th>User since</th>
               </tr>
             <% let index=0;%>
-            <% for(const member of user.columns) { index++;%>
+            <% for(const member of user.results) { index++;%>
               <tr>
               <th style="background-color: <%=member.color%>;"><%= index%></th>
               <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
