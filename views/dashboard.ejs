@@ -11,6 +11,12 @@
     font-size: 16px;
     cursor: pointer;
     }
+    .btna {
+    background-color: DodgerBlue;
+    color: white;
+    font-size: 16px;
+height: auto;
+ }
     .container {
   position: relative;
 }
@@ -27,7 +33,7 @@
     <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="css" href="/public/style.css">
     <title>Dashboard</title>
 </head>
 <body>
@@ -39,38 +45,36 @@
             <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
     </div>
 </header>
+<br>
+<div id="user-info">
+    <h1> Hello <%= user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1) %> !</h1>
+</div>
+        <br>
+        <h2 style="font-size: 35px;">New Recipe:</h2>
+        <form action="/save" method="post">
+        <textarea spellcheck="false" name="text" rows="50" cols="50" style="height: 300px;width: 300px;">Ingredients:
+            - 1st ingredient: ...
+            - ...
+            - ...
 
-        <br></br>
-    <a href="/editeur">
-        <button style="font-size: 35px;">+
-            New Recipe
-        </button>
-    </a>
-        <br></br>
-        <br></br>
-    <div id="user-info">
-        <h1> Hello <%= user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1) %> !</h1>
-    </div>
+Steps:
+            - 1st step: ...
+            - ...
+            - ...
+        </textarea>
+        <br>
+        <button type="submit" class="btn"><i class="fa fa-save"></i> Save</button>
+  </form>
     <br>
     <h2>Recent recipies</h2><!-- Dans cette boucle, on affiche la liste de tout les circuits enregistrés du user ainsi que l'option de delete à côté -->
     <% if(user.projets!=null) {%>
     <% let index=0;%>
-    <ul>
       <% for (const projet of user.projets) { if (projet!=null) {%>
-        <li>
-            <a href="editeur/<%=projet.id %>">
-                <button><%= projet.name %>  (dernière sauvegarde à <%=user.lastsaves[index]%>)</button>
-                <form action="/delete" method="POST" style="display: inline;">
-                    <input type="hidden" name="itemId" value="<%= index+1 %>">
-                    <button type="submit" style="color: red;">Delete</button>
-                  </form>
-            </a>
-        </li>
+        <button class="btna"><pre><h6 style="white-space: pre;"><%= projet %></h6></pre></button>
       <% }index++;} %>
-    </ul>
     <% } %>
     <br>
-    <h6 style="white-space: pre-line;">Little tip:
+    <h6 style="white-space:pre-line;">Little tip:
         Bla bla bla
     </h6>
     

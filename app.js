@@ -218,6 +218,20 @@ app.post('/query', async(req, res) => {
   }
   res.sendStatus(200);
 });
+app.post('/save', async(req, res) => {
+  const text = req.body.text;
+  try {
+    const result = await pool.query(
+      `UPDATE cookartusers
+      SET details=array_append(details, $1) 
+      WHERE email = $2`, [text, req.user.email] 
+    ); 
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+});
 app.post('/search', async (req, res) => {
   const searchTerm = req.body.search; // Get the search term from the form submission
   const tableContents = await pool.query('SELECT * FROM cookartusers');
