@@ -26,6 +26,79 @@ height: auto;
   top: 8px;
   right: 16px;
 }
+.wrap-collabsible {
+  margin-bottom: 1.2rem 0;
+}
+
+input[type='checkbox'] {
+  display: none;
+  visibility: hidden;
+}
+
+.lbl-toggle {
+  display: block;
+
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: center;
+
+  padding: 1rem;
+
+  color: #A77B0E;
+  background: #FAE042;
+
+  cursor: pointer;
+
+  border-radius: 7px;
+  transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+  color: #7C5A0B;
+}
+
+.lbl-toggle::before {
+  content: ' ';
+  display: inline-block;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  vertical-align: middle;
+  margin-right: .7rem;
+  transform: translateY(-2px);
+
+  transition: transform .2s ease-out;
+}
+
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .25s ease-in-out;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.collapsible-content .content-inner {
+  background: rgba(250, 224, 66, .2);
+  border-bottom: 1px solid rgba(250, 224, 66, .45);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: .5rem 1rem;
+}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,8 +123,11 @@ height: auto;
     <h1> Hello <%= user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1) %> !</h1>
 </div>
         <br>
-        <h2 style="font-size: 35px;">New Recipe:</h2>
+        <div class="wrap-collabsible"> <input id="collapsible3" class="toggle" type="checkbox"> <label for="collapsible3" class="lbl-toggle" tabindex="0">Start new recipe</label><div class="collapsible-content"><div class="content-inner">
         <form action="/save" method="post">
+        <label for="rname">Name of the recipe: </label>
+        <input type="text" id="rname" name="rname" style="width: 300px;">
+        <br>
         <textarea spellcheck="false" name="text" rows="50" cols="50" style="height: 300px;width: 300px;">Ingredients:
             - 1st ingredient: ...
             - ...
@@ -65,14 +141,16 @@ Steps:
         <br>
         <button type="submit" class="btn"><i class="fa fa-save"></i> Save</button>
   </form>
+</div></div></div>
     <br>
-    <h2>Recent recipies</h2><!-- Dans cette boucle, on affiche la liste de tout les circuits enregistrés du user ainsi que l'option de delete à côté -->
-    <% if(user.projets!=null) {%>
+    <div class="wrap-collabsible"> <input id="collapsible2" class="toggle" type="checkbox"> <label for="collapsible2" class="lbl-toggle" tabindex="0">Recent recipes</label><div class="collapsible-content"><div class="content-inner">
+    <% if(user.recipeName!=null) {%>
     <% let index=0;%>
-      <% for (const projet of user.projets) { if (projet!=null) {%>
+      <% for (const projet of user.recipeName) { if (projet!=null) {%>
         <button class="btna"><pre><h6 style="white-space: pre;"><%= projet %></h6></pre></button>
       <% }index++;} %>
     <% } %>
+</div></div></div>
     <br>
     <h6 style="white-space:pre-line;">Little tip:
         Bla bla bla

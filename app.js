@@ -220,12 +220,19 @@ app.post('/query', async(req, res) => {
 });
 app.post('/save', async(req, res) => {
   const text = req.body.text;
+  const recipeName = req.body.rname;
   try {
     const result = await pool.query(
       `UPDATE cookartusers
       SET details=array_append(details, $1) 
       WHERE email = $2`, [text, req.user.email] 
-    ); 
+    );
+    const resultTwo = await pool.query(
+      `UPDATE cookartusers
+      SET recipename=array_append(recipename, $1) 
+      WHERE email = $2`, [recipeName, req.user.email] 
+    );
+    res.redirect("/users/dashboard");
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
@@ -285,13 +292,14 @@ app.get("/users/logout", async (req, res) => {
   });
 });//Pour le GET dashboard, on donne un id, nom, prénom, projets, couleur et moments de sauvegardes au fichier dashboard.ejs
 app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
-  let projets;
+  let recipeName;
   try {
     const result = await pool.query(
-      'SELECT details FROM cookartusers WHERE email = $1',
+      'SELECT recipename FROM cookartusers WHERE email = $1',
       [req.user.email]
     );
-    projets = result.rows[0].details;
+    recipeName = result.rows[0].recipename;
+    console.log(recipeName);
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
@@ -311,7 +319,7 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
     id:req.user.email,
     name:req.user.name,
     prenom:req.user.prenom,
-    projets: projets,
+    recipeName: recipeName,
     color: req.user.color,
     lastsaves: req.user.lastsave,
   } });
