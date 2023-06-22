@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
+    <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <style>
+        body{
+            display: grid;
+  place-items: center;
+  background-color: blanchedalmond;
+        }
+        #text{
+            background-color: <%=user.color%>;
+            width: 100%;
+            height: 400px;
+        }
+        .btn {
+    background-color: DodgerBlue;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    }
+    .topright {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+p{
+    font-size: larger;
+}
+    </style>
+</head>
+<header>
+    <div class="topright">
+        <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+</div>
+</header>
+<body>
+    <div id="text">
+    <h1>About me!</h1>
+    <p>User ID: <%= user.id %></p>
+    <p>First name: <%= user.prenom %></p>
+    <p>Last name: <%= user.name %></p>
+    <p>Favorite color: Check my background!</p></div>
+</body>
+</html>

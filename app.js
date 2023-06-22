@@ -299,7 +299,6 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
       [req.user.email]
     );
     recipeName = result.rows[0].recipename;
-    console.log(recipeName);
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
@@ -330,16 +329,26 @@ app.get('/acceuil', function(req, res) {
 app.get('/editeur', checkAuthenticatedForEditor,function(req, res) {
 });
 //On ouvre le projet selon le id du circuit que le user souhaite ouvrir à partir du dashboard(id est la date de sauvegarde)
-app.get('/users/editeur/:id',function(req, res) {
-     console.log();
-    res.render("editeur", {
+app.get('/users/:id',async(req, res) =>{
+  try {
+    const id = req.params.id;
+    const result = await pool.query(
+      'SELECT * FROM cookartusers WHERE id = $1',
+      [id]
+    );
+    res.render("user", {
       user:{
-        name:req.user.name,
-        prenom:req.user.prenom,
-        color:req.user.color,
+        name:result.rows[0].name,
+        prenom:result.rows[0].prenom,
+        color:result.rows[0].color,
+        id:id,
       },
-      projet:req.user.details.find(element => element.id == req.params.id ) 
     });
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
 });
 
 
