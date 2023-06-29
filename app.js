@@ -239,6 +239,21 @@ app.post('/save', async(req, res) => {
     res.sendStatus(500);
   }
 });
+app.post('/bio', async(req, res) => {
+  const text = req.body.bio;
+  try {
+    const result = await pool.query(
+      `UPDATE cookartusers
+      SET bio=$1
+      WHERE email = $2`, [text, req.user.email] 
+    );
+    res.redirect("/users/dashboard");
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+});
 app.post('/search', async (req, res) => {
   const searchTerm = req.body.search; // Get the search term from the form submission
   const tableContents = await pool.query('SELECT * FROM cookartusers');
@@ -336,11 +351,15 @@ app.get('/users/:id',async(req, res) =>{
       'SELECT * FROM cookartusers WHERE id = $1',
       [id]
     );
+    var bio=result.rows[0].bio;
+    if(bio===null)
+      bio="Who am I?";
     res.render("user", {
       user:{
         name:result.rows[0].name,
         prenom:result.rows[0].prenom,
         color:result.rows[0].color,
+        bio:bio,
         id:id,
       },
     });

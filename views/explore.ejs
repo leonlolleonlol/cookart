@@ -123,45 +123,45 @@ form{
           <% if (user.results===null) { %>
               <table style="width: 100%;">
                 <tr style="background-color: white;">
-                  <th>Index</th>
                   <th>Full name</th>
                   <th>Status</th>
                   <th>User since</th>
+                  <th>Learn more</th>
                 </tr>
               <% let index=0;%>
-              <% for(const member of user.columns) { index++;%>
+              <% for(const member of user.columns) {%>
                 <tr>
-                <th style="background-color: <%=member.color%>;"><%= index%></th>
                 <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
                 <%if(member.status===true){%>
                   <th style="background-color: <%=member.color%>;">online!</th>
                   <%}else{%>
                   <th style="background-color: <%=member.color%>;">offline</th><%}%>
                 <th style="background-color: <%=member.color%>;"><%=member.userbirthdate%></th>
+                <th style="background-color: <%=member.color%>;"><a href="/users/<%= member.id%>">Bio</a></th>
                 </tr>
                 <% } %>
                 </table>
           <% } else { %>
             <table style="width: 100%;">
               <tr style="background-color: white;">
-                <th>Index</th>
+                <th>Sort by: oldest to newest use</th>
                 <th>Full name</th>
                 <th>Status</th>
                 <th>User since</th>
               </tr>
             <% let index=0;%>
-            <% for(const member of user.results) { index++;%>
+            <% for(const member of user.results) {%>
               <tr>
-              <th style="background-color: <%=member.color%>;"><%= index%></th>
-              <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
-              <%if(member.status===true){%>
-                <th style="background-color: <%=member.color%>;">online!</th>
-                <%}else{%>
-                <th style="background-color: <%=member.color%>;">offline</th><%}%>
-              <th style="background-color: <%=member.color%>;"><%=member.userbirthdate%></th>
-              </tr>
-              <% } %>
-              </table>
+                <th style="background-color: <%=member.color%>;"><%= member.prenom.charAt(0).toUpperCase() + member.prenom.slice(1) +" "+member.name.charAt(0).toUpperCase() + member.name.slice(1)%></th>
+                <%if(member.status===true){%>
+                  <th style="background-color: <%=member.color%>;">online!</th>
+                  <%}else{%>
+                  <th style="background-color: <%=member.color%>;">offline</th><%}%>
+                <th style="background-color: <%=member.color%>;"><%=member.userbirthdate%></th>
+                <th style="background-color: <%=member.color%>;"><a href="/users/<%= member.id%>">Bio</a></th>
+                </tr>
+                <% } %>
+                </table>
             <% if(index<1) {%>
               <h3 style="background-color: white;">No one found!</h3>
             <% }else if(index===1) {%>

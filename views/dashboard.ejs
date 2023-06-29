@@ -152,8 +152,16 @@ Steps:
     <% } %>
 </div></div></div>
     <br>
+    <div class="wrap-collabsible"> <input id="collapsible1" class="toggle" type="checkbox"> <label for="collapsible1" class="lbl-toggle" tabindex="0">Write my bio</label><div class="collapsible-content"><div class="content-inner">
+      <form action="/bio" method="post">
+      <textarea spellcheck="false" name="bio" rows="50" cols="50" style="width:300px;max-width: 300px;height:200px;max-height: 200px;">About me:
+    </textarea>
+    <br><button type="submit" class="btn"><i class="fa fa-save"></i> Save bio</button>
+    </form>
+    </div></div></div>  
+    <br>
     <h6 style="white-space:pre-line;">Little tip:
-        Bla bla bla
+        Did you know? You can customize your biography!
     </h6>
     
 </body>
