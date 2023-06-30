@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     <style>
+      p{
+        color: white;
+        background-color: black;
+        font-size: larger;
+        width: fit-content;
+      }
         body {
             background-color: <%=user.color%>;
         }
@@ -158,6 +164,7 @@ Steps:
     </textarea>
     <br><button type="submit" class="btn"><i class="fa fa-save"></i> Save bio</button>
     </form>
+    <p> Click <a href="/users/<%= user.id%>">here</a> to see your profile seen by others.</p>
     </div></div></div>  
     <br>
     <h6 style="white-space:pre-line;">Little tip:

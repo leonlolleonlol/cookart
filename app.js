@@ -330,7 +330,7 @@ app.get('/users/dashboard', checkNotAuthenticated, async(req, res)=> {
     res.sendStatus(500);
   }
   res.render("dashboard", {user:{
-    id:req.user.email,
+    id:req.user.id,
     name:req.user.name,
     prenom:req.user.prenom,
     recipeName: recipeName,
