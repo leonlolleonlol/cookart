@@ -4,7 +4,7 @@ const { Pool } = require("pg");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const connectionString = `postgres://db_for_users_user:HyhtdJvzf3LMiJ2CtRW0gIjfTomNakJw@dpg-ch9fhjhmbg52oq6aq81g-a.oregon-postgres.render.com/db_for_users?ssl=true`;
+const connectionString = `postgres://db_for_users_user:wJ6AK625aUDWL0BGHYjKFv0HXg0GJtMt@dpg-cjejjqivvtos73a0dh10-a.oregon-postgres.render.com/db_for_users_oyjg?ssl=true`;
 
 const pool = new Pool({
   connectionString: /*isProduction ? process.env.DATABASE_URL :*/ connectionString,

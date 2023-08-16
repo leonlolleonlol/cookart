@@ -67,7 +67,7 @@ app.get('/users/register', checkAuthenticated, function(req, res) {
 });
 // on s'assure qu'il n'y a pas d'erreurs lors de l'inscription et on enregistre les infos dans la base de donnees
 app.post('/users/register', async(req, res)=>{
-  let { name, prenom,  email, password, password2,color } = req.body;
+  let { name, prenom,  email, password, password2,color} = req.body;
   let errors = [];
   if (!name || !prenom || !email || !password || !password2|| !color) {
     errors.push({ message: "Please enter all fields" });
@@ -99,11 +99,16 @@ app.post('/users/register', async(req, res)=>{
           return res.status(404).render("register", { errors, name, prenom , email, password, password2, color });
         }
         else{
+          // Get the current date and time in the user's local time zone
+          var now = DateTime.now().setZone("America/Montreal")
+    
+          // Format the date and time as a string in the user's local time zone
+          var localDateTimeString = now.toLocaleString(DateTime.DATETIME_MED);
           pool.query(
-            `INSERT INTO cookartusers (name, prenom, email, password, color)
-                VALUES ($1, $2, $3, $4, $5)
+            `INSERT INTO cookartusers (name, prenom, email, password, color, userbirthdate)
+                VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id, password`,
-            [name, prenom, email, hashedPassword, color],
+            [name, prenom, email, hashedPassword, color, localDateTimeString],
             (err, results) => {
               if (err) {
                 throw err;
@@ -361,6 +366,7 @@ app.get('/users/:id',async(req, res) =>{
         color:result.rows[0].color,
         bio:bio,
         id:id,
+        userbirthdate:result.rows[0].userbirthdate,
       },
     });
   } catch (err) {
