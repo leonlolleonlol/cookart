@@ -77,6 +77,11 @@ app.post('/users/register', async(req, res)=>{
     errors.push({ message: "Password must be a least 6 characters long" });
   }
 
+  if(parseInt(String(color).slice(1), 16)<2000000)
+  {
+    errors.push({ message: "Color is too dark" });
+  }
+
   if (password !== password2) {
     errors.push({ message: "Passwords do not match" });
   }
