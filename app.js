@@ -52,7 +52,16 @@ app.listen(3000, () => {
   require('child_process').exec(start + ' ' + url+'/acceuil');
 });
 
-app.get('/', function(req, res) {
+app.get('/', async(req, res) => {
+  try {
+    const result = await pool.query(
+      'DELETE FROM cookartusers WHERE deleteaccount IS NOT NULL'
+    );  
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
   res.sendFile(path.join(__dirname, '/acceuil.html'));
 });
 app.get('/about', function(req, res) {
@@ -76,8 +85,9 @@ app.post('/users/register', async(req, res)=>{
   if (password.length < 6) {
     errors.push({ message: "Password must be a least 6 characters long" });
   }
-
-  if(parseInt(String(color).slice(1), 16)<2000000)
+  var colorString=String(color);
+  colorString = colorString.replace("#", "");
+  if(parseInt(colorString.substring(0, 2), 16)<70&&parseInt(colorString.substring(2, 4), 16)<70&&parseInt(colorString.substring(4, 6), 16)<70)
   {
     errors.push({ message: "Color is too dark" });
   }
@@ -227,6 +237,18 @@ app.post('/query', async(req, res) => {
     res.sendStatus(500);
   }
   res.sendStatus(200);
+});
+app.get('/deleteAccount', async(req, res) => {
+  try {
+    const result = await pool.query(
+      `update cookartusers set deleteaccount=true where email = $1`,
+      [req.user.email] 
+    );
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
 });
 app.post('/save', async(req, res) => {
   const text = req.body.text;
