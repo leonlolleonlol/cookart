@@ -249,6 +249,7 @@ app.get('/deleteAccount', async(req, res) => {
     console.error('Stack trace:', err.stack);
     res.sendStatus(500);
   }
+  res.redirect("/users/logout");
 });
 app.post('/save', async(req, res) => {
   const text = req.body.text;
