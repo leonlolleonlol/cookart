@@ -181,63 +181,6 @@ app.post('/delete', async(req, res) => {
   }
   res.redirect("/users/dashboard");
 });
-//Le POST query enregistre le projet et sa date de sauvegarde en considérant si c'est un nouveau ou un ancien projet
-app.post('/query', async(req, res) => {
-  let projets;
-  try {
-    const result = await pool.query(
-      'SELECT details FROM cookartusers WHERE email = $1',
-      [req.user.email]
-    );  
-    projets = result.rows[0].details;
-  } catch (err) {
-    console.error('Error:', err.message);
-    console.error('Stack trace:', err.stack);
-    res.sendStatus(500);
-  }
-  let idTest = req.body.id;
-  let index =-1;
-  if (projets!=null)
-    index = projets.findIndex(element => element.id ==idTest);
-
-    // Get the current date and time in the user's local time zone
-    var now = DateTime.now().setZone("America/Montreal")
-    
-    // Format the date and time as a string in the user's local time zone
-    var localDateTimeString = now.toLocaleString(DateTime.DATETIME_MED);
-    
-  //A chaque qu'on save, on s'assure qu'on n'avait pas save le meme circuit precedemment
-  try {
-    if(index!=-1){//On remplace le projet déjà crée par sa nouvelle valeur
-      await pool.query(
-        `UPDATE cookartusers
-        SET details[$3]= $1 
-        WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email, index] 
-      );
-      await pool.query(
-        `UPDATE cookartusers
-        SET lastsave[$3]= $1 
-        WHERE email = $2`, [localDateTimeString, req.user.email, index] 
-      );
-    }else{// On crée un nouveau projet dans le array details qui contient toutles projets
-      await pool.query(
-        `UPDATE cookartusers
-        SET details=array_append(details, $1) 
-        WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email] 
-      );
-      await pool.query(
-        `UPDATE cookartusers
-        SET lastsave=array_append(lastsave, $1) 
-        WHERE email = $2`, [localDateTimeString, req.user.email] 
-      );   
-    }
-  } catch (err) {
-    console.error('Error:', err.message);
-    console.error('Stack trace:', err.stack);
-    res.sendStatus(500);
-  }
-  res.sendStatus(200);
-});
 app.get('/deleteAccount', async(req, res) => {
   try {
     const result = await pool.query(
@@ -264,6 +207,14 @@ app.post('/save', async(req, res) => {
       `UPDATE cookartusers
       SET recipename=array_append(recipename, $1) 
       WHERE email = $2`, [recipeName, req.user.email] 
+    );
+    var now = DateTime.now().setZone("America/Montreal");
+    // Format the date and time as a string in the user's local time zone
+    var localDateTimeString = now.toLocaleString(DateTime.DATETIME_MED);
+    const resultThree = await pool.query(
+      `UPDATE cookartusers
+      SET lastsave=array_append(lastsave, $1) 
+      WHERE email = $2`, [localDateTimeString, req.user.email] 
     );
     res.redirect("/users/dashboard");
   } catch (err) {
@@ -392,9 +343,36 @@ app.get('/users/:id',async(req, res) =>{
         name:result.rows[0].name,
         prenom:result.rows[0].prenom,
         color:result.rows[0].color,
+        recipename:result.rows[0].recipename,
         bio:bio,
         id:id,
         userbirthdate:result.rows[0].userbirthdate,
+      },
+    });
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+});
+app.get('/users/:id/:recipename',async(req, res) =>{
+  try {
+    const id = req.params.id;
+    const specificRecipe = req.params.recipename;
+    const result = await pool.query(
+      'SELECT * FROM cookartusers WHERE id = $1',
+      [id]
+    );
+    res.render("recipe", {
+      user:{
+        name:result.rows[0].name,
+        prenom:result.rows[0].prenom,
+        specificRecipe: specificRecipe,
+        color: result.rows[0].color,
+        lastsaves: result.rows[0].lastsave,
+        id:id,
+        recipename: result.rows[0].recipename,
+        details:result.rows[0].details,
       },
     });
   } catch (err) {
@@ -429,3 +407,60 @@ function checkNotAuthenticated(req, res, next) {
   res.redirect("/users/login");
 }
 
+//Le POST query enregistre le projet et sa date de sauvegarde en considérant si c'est un nouveau ou un ancien projet
+/*app.post('/query', async(req, res) => {
+  let projets;
+  try {
+    const result = await pool.query(
+      'SELECT details FROM cookartusers WHERE email = $1',
+      [req.user.email]
+    );  
+    projets = result.rows[0].details;
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+  let idTest = req.body.id;
+  let index =-1;
+  if (projets!=null)
+    index = projets.findIndex(element => element.id ==idTest);
+
+    // Get the current date and time in the user's local time zone
+    var now = DateTime.now().setZone("America/Montreal")
+    // Format the date and time as a string in the user's local time zone
+    var localDateTimeString = now.toLocaleString(DateTime.DATETIME_MED);
+    
+  //A chaque qu'on save, on s'assure qu'on n'avait pas save le meme circuit precedemment
+  try {
+    if(index!=-1){//On remplace le projet déjà crée par sa nouvelle valeur
+      await pool.query(
+        `UPDATE cookartusers
+        SET details[$3]= $1 
+        WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email, index] 
+      );
+      await pool.query(
+        `UPDATE cookartusers
+        SET lastsave[$3]= $1 
+        WHERE email = $2`, [localDateTimeString, req.user.email, index] 
+      );
+    }else{// On crée un nouveau projet dans le array details qui contient toutles projets
+      await pool.query(
+        `UPDATE cookartusers
+        SET details=array_append(details, $1) 
+        WHERE email = $2`, [JSON.stringify(req.body).replace(/([a-zA-Z0-9_]+?):/g, '"$1":'), req.user.email] 
+      );
+      await pool.query(
+        `UPDATE cookartusers
+        SET lastsave=array_append(lastsave, $1) 
+        WHERE email = $2`, [localDateTimeString, req.user.email] 
+      );   
+    }
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+  res.sendStatus(200);
+});
+*/

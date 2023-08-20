@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
-    <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Info</title>
     <style>
-        body{
-            display: grid;
-  place-items: center;
-  background-color: blanchedalmond;
-        }
-        #text{
+      p{
+        color: white;
+        background-color: black;
+        font-size: larger;
+        width: fit-content;
+        text-align: center;
+        width: auto;
+      }
+        body {
             background-color: <%=user.color%>;
-            width: 100%;
-            height: 400px;
         }
         .btn {
     background-color: DodgerBlue;
@@ -25,29 +19,144 @@
     font-size: 16px;
     cursor: pointer;
     }
-    .topright {
+    .btna {
+    background-color: DodgerBlue;
+    color: white;
+    font-size: 16px;
+height: auto;
+ }
+ 
+ .btnb {
+    background-color: rgb(78, 25, 25);
+    color: black;
+    font-size: 8px;
+    bottom:10px;
+    right:10px;
+    position:absolute;
+ }
+    .container {
+  position: relative;
+}
+
+.topright {
   position: absolute;
   top: 8px;
   right: 16px;
 }
-p{
+.wrap-collabsible {
+  margin-bottom: 1.2rem 0;
+}
+
+input[type='checkbox'] {
+  display: none;
+  visibility: hidden;
+}
+
+.lbl-toggle {
+  display: block;
+
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: center;
+
+  padding: 1rem;
+
+  color: #A77B0E;
+  background: #FAE042;
+
+  cursor: pointer;
+
+  border-radius: 7px;
+  transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+  color: #7C5A0B;
+}
+
+.lbl-toggle::before {
+  content: ' ';
+  display: inline-block;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  vertical-align: middle;
+  margin-right: .7rem;
+  transform: translateY(-2px);
+
+  transition: transform .2s ease-out;
+}
+
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .25s ease-in-out;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.collapsible-content .content-inner {
+  background: rgba(250, 224, 66, .2);
+  border-bottom: 1px solid rgba(250, 224, 66, .45);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  padding: .5rem 1rem;
+}
+a{background-color: rgb(15, 34, 95);
+border-radius: 100%;}
+h1{
+    color: antiquewhite;
+    font-weight: bolder;
     font-size: larger;
+    background-color: #bba90c;
+    text-align: center;
 }
     </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
+    <link rel="stylesheet" type="css" href="/public/style.css">
+    <title>Dashboard</title>
 </head>
-<header>
-    <div class="topright">
-        <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
-</div>
-</header>
 <body>
-    <div id="text">
-    <h1>About me!</h1>
-    <p>User ID: <%= user.id %></p>
-    <p>First name: <%= user.prenom %></p>
-    <p>Last name: <%= user.name %></p>
-    <p><%= user.bio %></p>
-    <p>Favorite color: Check my background!</p>
-    <p>User since: <%= user.userbirthdate %></p></div>
+    <header>
+        <div class="topright">
+            <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+    </div>
+</header>
+<div id="text">
+    <h1 style="text-align: center;">About me!</h1>
+    <p><br>User ID: <%= user.id %> <br><br>
+    First name: <%= user.prenom %><br><br>
+    Last name: <%= user.name %><br><br>
+    <%= user.bio %><br><br>
+    Favorite color: Check my background!<br><br>
+    User since: <%= user.userbirthdate %><br><br>
+     </p></div>
+    <div class="wrap-collabsible"> <input id="collapsible2" class="toggle" type="checkbox"> <label for="collapsible2" class="lbl-toggle" tabindex="0">Recent recipes</label><div class="collapsible-content"><div class="content-inner">
+    <% if(user.recipename!=null) {%>
+    <% let index=0;%>
+      <% for (const projet of user.recipename) { if (projet!=null) {%>
+        <button class="btna"><pre><h6 style="white-space: pre;"><a href="/users/<%= user.id%>/<%= projet %>"><%= projet %></a></h6></pre></button>
+      <% }index++;} %>
+    <% } %>
+</div></div></div>
 </body>
 </html>

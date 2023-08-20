@@ -29,7 +29,7 @@ height: auto;
     color: black;
     font-size: 8px;
     bottom:10px;
-    left:10px;
+    right:10px;
     position:absolute;
  }
     .container {
@@ -162,7 +162,7 @@ Steps:
     <% if(user.recipeName!=null) {%>
     <% let index=0;%>
       <% for (const projet of user.recipeName) { if (projet!=null) {%>
-        <button class="btna"><pre><h6 style="white-space: pre;"><%= projet %></h6></pre></button>
+        <button class="btna"><pre><h6 style="white-space: pre;"><a href="/users/<%= user.id%>/<%= projet %>"><%= projet %></a></h6></pre></button>
       <% }index++;} %>
     <% } %>
 </div></div></div>

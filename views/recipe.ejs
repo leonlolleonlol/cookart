@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        p{
+          color: beige;
+          background-color: rgb(36, 36, 36);
+          font-size: larger;
+          border:10%;
+          border-radius: 20px;
+          white-space:pre-line;
+          text-align: center;
+        }
+          body {
+              background-color: <%=user.color%>;
+          }
+          .btn {
+      background-color: DodgerBlue;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      }
+      .btna {
+      background-color: DodgerBlue;
+      color: white;
+      font-size: 16px;
+  height: auto;
+   }
+   
+   .btnb {
+      background-color: rgb(78, 25, 25);
+      color: black;
+      font-size: 8px;
+      bottom:10px;
+      right:10px;
+      position:absolute;
+   }
+      .container {
+    position: relative;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg" href="/images/icons/cpu.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"/>
+    <link rel="stylesheet" type="css" href="/public/style.css">
+    <title>Recipe</title>
+</head>
+<body>
+    <% let index=0;%>
+      <% for (const projet of user.recipename) { if (projet!=user.specificRecipe) {%>
+      <% index++;}else{break;}}%>
+      <p style="font-size: 75px;"><%=user.specificRecipe%></p>
+      <p><%=user.details[index]%></p>
+      <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
+</body>
+</html>
