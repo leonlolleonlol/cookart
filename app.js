@@ -381,6 +381,28 @@ app.get('/users/:id/:recipename',async(req, res) =>{
     res.sendStatus(500);
   }
 });
+app.get('/random',async(req, res) =>{
+  try {
+    const result = await pool.query('SELECT * FROM cookartusers ORDER BY random() LIMIT 1;');
+    res.render("recipe", {
+      user:{
+        name:result.rows[0].name,
+        prenom:result.rows[0].prenom,
+        specificRecipe: result.rows[0].details,
+        color: result.rows[0].color,
+        lastsaves: result.rows[0].lastsave,
+        id:result.rows[0].id,
+        recipename: result.rows[0].recipename,
+        details:result.rows[0].details,
+        random:true,
+      },
+    });
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+});
 
 
 function checkAuthenticated(req, res, next) {
