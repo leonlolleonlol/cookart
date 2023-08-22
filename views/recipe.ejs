@@ -15,29 +15,25 @@
               background-color: <%=user.color%>;
           }
           .btn {
-      background-color: DodgerBlue;
-      color: white;
+      background-color: white;
+      color: <%=user.color%>;
       font-size: 16px;
       cursor: pointer;
+      border-radius: 20px;
       }
-      .btna {
-      background-color: DodgerBlue;
-      color: white;
-      font-size: 16px;
-  height: auto;
-   }
-   
-   .btnb {
-      background-color: rgb(78, 25, 25);
-      color: black;
-      font-size: 8px;
-      bottom:10px;
-      right:10px;
-      position:absolute;
-   }
       .container {
     position: relative;
       }
+      .topright {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.bottomcenter {
+  width: 99%;
+  text-align: center;
+  bottom: 10px;
+}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,11 +45,16 @@
     <title>Recipe</title>
 </head>
 <body>
-    <% let index=0;%>
+  <div class="topright">
+    <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+  </div>
+      <%let index=0;%>
       <% for (const projet of user.recipename) { if (projet!=user.specificRecipe) {%>
-      <% index++;}else{break;}}%>
+      <% index++;%>
+      <%}else{break;}}%>
       <p style="font-size: 75px;"><%=user.specificRecipe%></p>
       <p><%=user.details[index]%></p>
       <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
+      <div class="bottomcenter"><a href="/random"><button class="btn">Another one!</button></a></div>
 </body>
 </html>

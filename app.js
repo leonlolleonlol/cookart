@@ -373,6 +373,7 @@ app.get('/users/:id/:recipename',async(req, res) =>{
         id:id,
         recipename: result.rows[0].recipename,
         details:result.rows[0].details,
+        random:1,
       },
     });
   } catch (err) {
@@ -388,13 +389,13 @@ app.get('/random',async(req, res) =>{
       user:{
         name:result.rows[0].name,
         prenom:result.rows[0].prenom,
-        specificRecipe: result.rows[0].details,
+        specificRecipe: result.rows[0].recipename[0],
         color: result.rows[0].color,
         lastsaves: result.rows[0].lastsave,
         id:result.rows[0].id,
         recipename: result.rows[0].recipename,
         details:result.rows[0].details,
-        random:true,
+        random:0,
       },
     });
   } catch (err) {
