@@ -67,6 +67,9 @@ app.get('/', async(req, res) => {
 app.get('/about', function(req, res) {
   res.sendFile(path.join(__dirname, '/about.html'));
 });
+app.get('/easteregg', function(req, res) {
+  res.sendFile(path.join(__dirname, '/easteregg.html'));
+});
 app.get('/users/initialization', function(req, res) {
   res.sendFile(path.join(__dirname, '/initialization.html'));
 });
