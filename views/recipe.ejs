@@ -29,11 +29,56 @@
   top: 8px;
   right: 8px;
 }
-.bottomcenter {
-  width: 99%;
-  text-align: center;
-  bottom: 10px;
+em {
+			display: block;
+			margin: .5em auto 2em;
+			color: #bbb;
+		}
+		a[href*="intent"] {
+			display:inline-block;
+			margin-top: 0.4em;
+		}
+
+		/*  
+		 * Rating styles
+		 */
+		.rating {
+			width: 226px;
+			margin: 0 auto 1em;
+			font-size: 45px;
+			overflow:hidden;
+		}
+.rating input {
+  float: right;
+  opacity: 0;
+  position: absolute;
 }
+		.rating a,
+    .rating label {
+			float:right;
+			color: #aaa;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+.rating label:hover ~ label,
+.rating input:focus ~ label,
+.rating label:hover,
+		.rating a:hover,
+		.rating a:hover ~ a,
+		.rating a:focus,
+		.rating a:focus ~ a		{
+			color: orange;
+			cursor: pointer;
+		}
+		.rating2 {
+			direction: rtl;
+		}
+		.rating2 a {
+			float:none
+		}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,6 +100,13 @@
       <p style="font-size: 75px;"><%=user.specificRecipe%></p>
       <p><%=user.details[index]%></p>
       <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
-      <div class="bottomcenter"><a href="/random"><button class="btn">Another one!</button></a></div>
+      <div class="rating"><!-- I used this site to design the 5 stars :https://codepen.io/GeoffreyCrofte/pen/ALOggg--><!--
+      --><input name="stars" id="e5" type="radio"></a><label for="e5">☆</label><!--
+        --><input name="stars" id="e4" type="radio"></a><label for="e4">☆</label><!--
+        --><input name="stars" id="e3" type="radio"></a><label for="e3">☆</label><!--
+        --><input name="stars" id="e2" type="radio"></a><label for="e2">☆</label><!--
+        --><input name="stars" id="e1" type="radio"></a><label for="e1">☆</label>
+      </div>
+      <div class="rating"><a href="/random"><button class="btn">Another one!</button></a></div>
 </body>
 </html>
