@@ -70,6 +70,9 @@ app.get('/about', function(req, res) {
 app.get('/easteregg', function(req, res) {
   res.sendFile(path.join(__dirname, '/easteregg.html'));
 });
+app.get('/guesterror', function(req, res) {
+  res.sendFile(path.join(__dirname, '/guesterror.html'));
+});
 app.get('/users/initialization', function(req, res) {
   res.sendFile(path.join(__dirname, '/initialization.html'));
 });
@@ -262,6 +265,34 @@ app.post('/search', async (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
+app.post('/rate', async(req, res) => {
+  try{
+  req.user.email;
+  const id = req.body.id;
+  const stars = req.body.stars;
+  try {
+    const result = await pool.query(
+      `UPDATE cookartusers
+      SET nbratings[0]=nbratings[0]+1
+      WHERE email = $1`, [ id] 
+    );
+    const resultTwo = await pool.query(
+      `UPDATE cookartusers
+      SET ratings[0]=ratings[0]+$1
+      WHERE email = $2`, [ stars,id] 
+    );
+    res.redirect("/random");
+  } catch (err) {
+    console.error('Error:', err.message);
+    console.error('Stack trace:', err.stack);
+    res.sendStatus(500);
+  }
+}
+catch
+{
+  res.redirect("/guesterror");
+}
+});
 app.get('/explore', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM cookartusers');
@@ -387,6 +418,8 @@ app.get('/users/:id/:recipename',async(req, res) =>{
 app.get('/random',async(req, res) =>{
   try {
     const result = await pool.query('SELECT * FROM cookartusers ORDER BY random() LIMIT 1;');
+    if(result.rows[0].recipename.length!=null)
+    {
     res.render("recipe", {
       user:{
         name:result.rows[0].name,
@@ -399,6 +432,9 @@ app.get('/random',async(req, res) =>{
         details:result.rows[0].details,
       },
     });
+  }
+  else
+    redirect('/random');
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
