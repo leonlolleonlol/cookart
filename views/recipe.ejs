@@ -100,17 +100,21 @@ em {
       <p style="font-size: 75px;"><%=user.specificRecipe%></p>
       <p><%=user.details[index]%></p>
       <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
+      <%if(user.nbratings[index]>0){%>
+        <%const floatingNumber = parseFloat((user.ratings[index]/user.nbratings[index]).toFixed(1));%>
+        <p><%= floatingNumber%> stars <%= user.nbratings[index]%> reviews</p>
+      <%}%>
       <form action="/rate" method="POST">
-      <div class="rating"><!-- I used this site to design the 5 stars :https://codepen.io/GeoffreyCrofte/pen/ALOggg--><!--
+      <div class="rating" style="translate: -10%;"><!-- I used this site to design the 5 stars :https://codepen.io/GeoffreyCrofte/pen/ALOggg--><!--
         --><input name="stars" id="e5" type="radio" value="5"></a><label for="e5">☆</label><!--
         --><input name="stars" id="e4" type="radio" value="4"></a><label for="e4">☆</label><!--
         --><input name="stars" id="e3" type="radio" value="3"></a><label for="e3">☆</label><!--
         --><input name="stars" id="e2" type="radio" value="2"></a><label for="e2">☆</label><!--
         --><input name="stars" id="e1" type="radio" value="1"></a><label for="e1">☆</label>
       <input id="id" name="id" value="<%=user.id%>">
-      <button type="submit" class="btn" style="translate: 20%;">Send review</button>
+      <button type="submit" class="btn" style="translate: 21%;">Send review</button>
       </div>
       </form>
-      <div class="rating"><a href="/random"><button class="btn">Another one!</button></a></div>
+      <div class="rating" style="translate: -8%;"><a href="/random"><button class="btn">Another one!</button></a></div>
 </body>
 </html>

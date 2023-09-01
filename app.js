@@ -267,19 +267,18 @@ app.post('/search', async (req, res) => {
 });
 app.post('/rate', async(req, res) => {
   try{
-  req.user.email;
   const id = req.body.id;
   const stars = req.body.stars;
   try {
     const result = await pool.query(
       `UPDATE cookartusers
       SET nbratings[0]=nbratings[0]+1
-      WHERE email = $1`, [ id] 
+      WHERE id = $1`, [ id] 
     );
     const resultTwo = await pool.query(
       `UPDATE cookartusers
       SET ratings[0]=ratings[0]+$1
-      WHERE email = $2`, [ stars,id] 
+      WHERE id = $2`, [ stars,id] 
     );
     res.redirect("/random");
   } catch (err) {
@@ -416,10 +415,8 @@ app.get('/users/:id/:recipename',async(req, res) =>{
   }
 });
 app.get('/random',async(req, res) =>{
-  try {
-    const result = await pool.query('SELECT * FROM cookartusers ORDER BY random() LIMIT 1;');
-    if(result.rows[0].recipename.length!=null)
-    {
+  try{
+    const result = await pool.query('SELECT * FROM cookartusers WHERE details IS NOT NULL ORDER BY random() LIMIT 1;');
     res.render("recipe", {
       user:{
         name:result.rows[0].name,
@@ -430,11 +427,10 @@ app.get('/random',async(req, res) =>{
         id:result.rows[0].id,
         recipename: result.rows[0].recipename,
         details:result.rows[0].details,
+        ratings:result.rows[0].ratings,
+        nbratings:result.rows[0].nbratings,
       },
     });
-  }
-  else
-    redirect('/random');
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
