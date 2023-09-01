@@ -267,18 +267,20 @@ app.post('/search', async (req, res) => {
 });
 app.post('/rate', async(req, res) => {
   try{
-  const id = req.body.id;
+  const idReviewed = req.body.id;
+  const id = req.user.id;
   const stars = req.body.stars;
+  const index = req.body.index;
   try {
     const result = await pool.query(
       `UPDATE cookartusers
-      SET nbratings[0]=nbratings[0]+1
-      WHERE id = $1`, [ id] 
+      SET nbratings[$2]=nbratings[$2]+1
+      WHERE id = $1`, [ idReviewed,index] 
     );
     const resultTwo = await pool.query(
       `UPDATE cookartusers
-      SET ratings[0]=ratings[0]+$1
-      WHERE id = $2`, [ stars,id] 
+      SET ratings[$3]=ratings[$3]+$1
+      WHERE id = $2`, [ stars,idReviewed,index] 
     );
     res.redirect("/random");
   } catch (err) {
@@ -406,6 +408,8 @@ app.get('/users/:id/:recipename',async(req, res) =>{
         id:id,
         recipename: result.rows[0].recipename,
         details:result.rows[0].details,
+        ratings:result.rows[0].ratings,
+        nbratings:result.rows[0].nbratings,
       },
     });
   } catch (err) {
