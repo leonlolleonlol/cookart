@@ -93,10 +93,15 @@ em {
   <div class="topright">
     <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
   </div>
+      <%let findingindex=0;%>
       <%let index=0;%>
+      <%let blockReview=0;%>
       <% for (const projet of user.recipename) { if (projet!=user.specificRecipe) {%>
       <% index++;%>
       <%}else{break;}}%>
+      <% for (const projet of user.idreviewed) { if (projet!= user.id) {%>
+        <% findingindex++;%>
+        <%}else{if(user.indexreviewed[findingindex]!=index){continue;}else{blockReview=1;break;}}}%>  
       <p style="font-size: 75px;"><%=user.specificRecipe%></p>
       <p><%=user.details[index]%></p>
       <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
@@ -106,6 +111,7 @@ em {
       <%}else{%>
         <p>No reviews yet.</p>
         <%}%>
+        <%if(blockReview < 1 ){%>
       <form action="/rate" method="POST">
       <div class="rating" style="translate: -10%;"><!-- I used this site to design the 5 stars :https://codepen.io/GeoffreyCrofte/pen/ALOggg--><!--
         --><input name="stars" id="e5" type="radio" value="5"></a><label for="e5">☆</label><!--
@@ -118,6 +124,9 @@ em {
       <button type="submit" class="btn" style="translate: 21%;">Send review</button>
       </div>
       </form>
+      <%}else{%>
+        <p> You have already reviewed this recipe.</p>
+      <%}%>  
       <div class="rating" style="translate: -8%;"><a href="/random"><button class="btn">Another one!</button></a></div>
 </body>
 </html>

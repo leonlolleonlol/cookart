@@ -267,20 +267,29 @@ app.post('/search', async (req, res) => {
 });
 app.post('/rate', async(req, res) => {
   try{
-  const idReviewed = req.body.id;
-  const id = req.user.id;
+  const id = req.body.id;
   const stars = req.body.stars;
   const index = req.body.index;
   try {
     const result = await pool.query(
       `UPDATE cookartusers
       SET nbratings[$2]=nbratings[$2]+1
-      WHERE id = $1`, [ idReviewed,index] 
+      WHERE id = $1`, [ id,index] 
     );
     const resultTwo = await pool.query(
       `UPDATE cookartusers
       SET ratings[$3]=ratings[$3]+$1
-      WHERE id = $2`, [ stars,idReviewed,index] 
+      WHERE id = $2`, [ stars,id,index] 
+    );
+    const resultThree = await pool.query(
+      `UPDATE cookartusers
+      SET indexreviewed=array_append(indexreviewed, $1) 
+      WHERE email = $2`, [index, req.user.email] 
+    );
+    const resultFour = await pool.query(
+      `UPDATE cookartusers
+      SET idreviewed=array_append(idreviewed, $1) 
+      WHERE email = $2`, [id, req.user.email] 
     );
     res.redirect("/random");
   } catch (err) {
@@ -398,6 +407,10 @@ app.get('/users/:id/:recipename',async(req, res) =>{
       'SELECT * FROM cookartusers WHERE id = $1',
       [id]
     );
+    const resultTwo = await pool.query(
+      'SELECT * FROM cookartusers WHERE email = $1',
+      [req.user.email]
+    );
     res.render("recipe", {
       user:{
         name:result.rows[0].name,
@@ -410,6 +423,8 @@ app.get('/users/:id/:recipename',async(req, res) =>{
         details:result.rows[0].details,
         ratings:result.rows[0].ratings,
         nbratings:result.rows[0].nbratings,
+        idreviewed:resultTwo.rows[0].idreviewed,
+        indexreviewed:resultTwo.rows[0].indexreviewed,
       },
     });
   } catch (err) {
@@ -421,6 +436,10 @@ app.get('/users/:id/:recipename',async(req, res) =>{
 app.get('/random',async(req, res) =>{
   try{
     const result = await pool.query('SELECT * FROM cookartusers WHERE details IS NOT NULL ORDER BY random() LIMIT 1;');
+    const resultTwo = await pool.query(
+      'SELECT * FROM cookartusers WHERE email = $1',
+      [req.user.email]
+    );
     res.render("recipe", {
       user:{
         name:result.rows[0].name,
@@ -433,6 +452,8 @@ app.get('/random',async(req, res) =>{
         details:result.rows[0].details,
         ratings:result.rows[0].ratings,
         nbratings:result.rows[0].nbratings,
+        idreviewed:resultTwo.rows[0].idreviewed,
+        indexreviewed:resultTwo.rows[0].indexreviewed,
       },
     });
   } catch (err) {
