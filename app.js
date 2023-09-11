@@ -222,6 +222,16 @@ app.post('/save', async(req, res) => {
       SET lastsave=array_append(lastsave, $1) 
       WHERE email = $2`, [localDateTimeString, req.user.email] 
     );
+    const resultFour = await pool.query(
+      `UPDATE cookartusers
+      SET ratings=array_append(ratings, 0)
+      WHERE email = $1`, [ req.user.email] 
+    );
+    const resultFive = await pool.query(
+      `UPDATE cookartusers
+      SET nbratings=array_append(nbratings, 0) 
+      WHERE email = $1`, [ req.user.email] 
+    );
     res.redirect("/users/dashboard");
   } catch (err) {
     console.error('Error:', err.message);
@@ -407,6 +417,22 @@ app.get('/users/:id/:recipename',async(req, res) =>{
       'SELECT * FROM cookartusers WHERE id = $1',
       [id]
     );
+    if(typeof req.user.email === 'undefined')
+      {res.render("recipe", {
+        user:{
+          name:result.rows[0].name,
+          prenom:result.rows[0].prenom,
+          specificRecipe: specificRecipe,
+          color: result.rows[0].color,
+          lastsaves: result.rows[0].lastsave,
+          id:id,
+          recipename: result.rows[0].recipename,
+          details:result.rows[0].details,
+          ratings:result.rows[0].ratings,
+          nbratings:result.rows[0].nbratings,
+        },
+      });}
+      else{
     const resultTwo = await pool.query(
       'SELECT * FROM cookartusers WHERE email = $1',
       [req.user.email]
@@ -426,7 +452,7 @@ app.get('/users/:id/:recipename',async(req, res) =>{
         idreviewed:resultTwo.rows[0].idreviewed,
         indexreviewed:resultTwo.rows[0].indexreviewed,
       },
-    });
+    });}
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);
@@ -436,10 +462,30 @@ app.get('/users/:id/:recipename',async(req, res) =>{
 app.get('/random',async(req, res) =>{
   try{
     const result = await pool.query('SELECT * FROM cookartusers WHERE details IS NOT NULL ORDER BY random() LIMIT 1;');
+    if(typeof req.user === 'undefined')
+    {
+    res.render("recipe", {
+      user:{
+        name:result.rows[0].name,
+        prenom:result.rows[0].prenom,
+        specificRecipe: result.rows[0].recipename[Math.floor(Math.random() * result.rows[0].recipename.length)],
+        color: result.rows[0].color,
+        lastsaves: result.rows[0].lastsave,
+        id:result.rows[0].id,
+        recipename: result.rows[0].recipename,
+        details:result.rows[0].details,
+        ratings:result.rows[0].ratings,
+        nbratings:result.rows[0].nbratings,
+      },
+    });
+    }
+    else
+    {
     const resultTwo = await pool.query(
       'SELECT * FROM cookartusers WHERE email = $1',
       [req.user.email]
     );
+    
     res.render("recipe", {
       user:{
         name:result.rows[0].name,
@@ -456,6 +502,7 @@ app.get('/random',async(req, res) =>{
         indexreviewed:resultTwo.rows[0].indexreviewed,
       },
     });
+  }
   } catch (err) {
     console.error('Error:', err.message);
     console.error('Stack trace:', err.stack);

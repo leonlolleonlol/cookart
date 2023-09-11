@@ -99,13 +99,16 @@ em {
       <% for (const projet of user.recipename) { if (projet!=user.specificRecipe) {%>
       <% index++;%>
       <%}else{break;}}%>
+      <%if(typeof user.idreviewed === 'undefined'){blockReview=1;%>
+      <%}else{%>
+      <%if(user.idreviewed!=null){%>
       <% for (const projet of user.idreviewed) { if (projet!= user.id) {%>
         <% findingindex++;%>
-        <%}else{if(user.indexreviewed[findingindex]!=index){continue;}else{blockReview=1;break;}}}%>  
+        <%}else{if(user.indexreviewed[findingindex]!=index){continue;}else{blockReview=1;break;}}}}}%>
       <p style="font-size: 75px;"><%=user.specificRecipe%></p>
       <p><%=user.details[index]%></p>
       <p>Written by <a href="/users/<%= user.id%>"><%=user.prenom%> <%=user.name%></a> on <%=user.lastsaves[index]%></p>
-      <%if(user.nbratings[index]>0){%>
+        <%if(user.nbratings[index]>0){%>
         <%const floatingNumber = parseFloat((user.ratings[index]/user.nbratings[index]).toFixed(1));%>
         <p><%= floatingNumber%> stars <%= user.nbratings[index]%> reviews</p>
       <%}else{%>
@@ -124,7 +127,7 @@ em {
       <button type="submit" class="btn" style="translate: 21%;">Send review</button>
       </div>
       </form>
-      <%}else{%>
+      <%}else if(typeof user.idreviewed != 'undefined'){%>
         <p> You have already reviewed this recipe.</p>
       <%}%>  
       <div class="rating" style="translate: -8%;"><a href="/random"><button class="btn">Another one!</button></a></div>
