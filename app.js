@@ -417,7 +417,7 @@ app.get('/users/:id/:recipename',async(req, res) =>{
       'SELECT * FROM cookartusers WHERE id = $1',
       [id]
     );
-    if(typeof req.user.email === 'undefined')
+    if(typeof req.user === 'undefined')
       {res.render("recipe", {
         user:{
           name:result.rows[0].name,
