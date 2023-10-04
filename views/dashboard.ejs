@@ -25,9 +25,9 @@ height: auto;
  }
  
  .btnb {
-    background-color: rgb(78, 25, 25);
-    color: black;
-    font-size: 8px;
+    background-color: DodgerBlue;
+    color: red;
+    font-size: 9px;
     bottom:10px;
     right:10px;
     position:absolute;
@@ -126,11 +126,9 @@ input[type='checkbox'] {
 </head>
 <body>
     <header>
-            <a href="/users/logout">
-                <img src="../images/icons/log-out.svg" alt="Déconnexion"/>
-            </a>
+      <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
         <div class="topright">
-            <a href="/"><button class="btn"><i class="fa fa-home"></i> Home</button></a>
+          <a href="/users/logout"><button class="btn"><i class="fa fa-sign-out"></i> Sign out</button></a>
     </div>
 </header>
 <br>
@@ -183,7 +181,8 @@ How can you turn this dish into art?
         Tip #2:
         Do not put special characters in the title of your recipe!
     </h6>
-    <a href="/deleteAccount"><button class="btnb">DELETE MY ACCOUNT</button></a>
+    <a href="/deleteAccount"><button class="btnb"><i class="fa fa-ban"></i> DELETE MY ACCOUNT</button></a>
+
     
 </body>
 </html>
